@@ -49,7 +49,7 @@ func write(hub *SSEClientsHub, rw http.ResponseWriter, r *http.Request) {
 		case <-notify:
 			client.hub.unregister <- client
 			return
-		case data := <-messageChannel:
+		case data := <-client.send:
 			fmt.Fprintf(rw, "data: %v \n\n", data.Message)
 			flusher.Flush()
 		}

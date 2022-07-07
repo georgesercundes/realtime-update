@@ -31,11 +31,18 @@ func (hub *SSEClientsHub) run() {
 		case client := <-hub.register:
 			hub.clients[client] = true
 		case client := <-hub.unregister:
-			delete(hub.clients, client)
-			close(client.send)
+			if _, ok := hub.clients[client]; ok {
+				delete(hub.clients, client)
+				close(client.send)
+			}
 		case data := <-hub.broadcast:
 			for client := range hub.clients {
-				client.send <- data
+				select {
+				case client.send <- data:
+				default:
+					close(client.send)
+					delete(hub.clients, client)
+				}
 			}
 		}
 	}

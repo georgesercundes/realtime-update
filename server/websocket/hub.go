@@ -34,7 +34,10 @@ func (hub *WSClientsHub) run() {
 		case client := <-hub.register:
 			hub.clients[client] = true
 		case client := <-hub.unregister:
-			delete(hub.clients, client)
+			if _, ok := hub.clients[client]; ok {
+				delete(hub.clients, client)
+				close(client.send)
+			}
 		case message := <-hub.broadcast:
 			for client := range hub.clients {
 				select {
