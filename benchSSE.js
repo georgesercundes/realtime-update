@@ -1,10 +1,13 @@
 import http from "k6/http";
 
 import { check } from "k6";
-import { randomString } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
+import { randomString } from "https://jslib.k6.io/k6-utils/1.2.0/index.js";
 
 export const options = {
   insecureSkipTLSVerify: true,
+  noConnectionReuse: true,
+  iterations: 1000,
+  vus: 1
 };
 
 export default function () {

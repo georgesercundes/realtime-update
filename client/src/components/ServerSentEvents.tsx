@@ -9,10 +9,10 @@ function ServerSentEvents() {
     const eventSource = new EventSource("https://127.0.0.1:5000/sse");
     eventSource.onmessage = (e) => {
       setMessage("Message from the server: " + e.data);
-    };
 
-    return () => {
-      eventSource.close();
+      return () => {
+        eventSource.close();
+      };
     };
   }, []);
 

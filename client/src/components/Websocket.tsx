@@ -9,15 +9,15 @@ function Websocket() {
   React.useEffect(() => {
     socket.onmessage = (e) => {
       setMessage("Message from the server: " + JSON.parse(e.data).message);
+
+      return () => {
+        socket.close();
+      };
     };
-  }, [message]);
+  }, []);
 
   const handleClick = () => {
     socket.send(JSON.stringify({ message: inputValue }));
-
-    return () => {
-      socket.close();
-    };
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
