@@ -12,7 +12,7 @@ export const options = {
 
 export default function () {
   const res = http.post(
-    "https://127.0.0.1:5000/log",
+    "https://127.0.0.1:5000/post",
     JSON.stringify({ message: randomString(10) })
   );
   check(res, { "status was 200": (r) => r.status == 200 });

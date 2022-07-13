@@ -18,7 +18,7 @@ function ServerSentEvents() {
 
   const handleClick = () => {
     axios.post(
-      "https://127.0.0.1:5000/log",
+      "https://127.0.0.1:5000/post",
       JSON.stringify({ message: inputValue })
     );
   };

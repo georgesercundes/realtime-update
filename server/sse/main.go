@@ -17,7 +17,7 @@ func main() {
 		write(SSEClientsHub, rw, r)
 	})
 
-	http.HandleFunc("/log", func(rw http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/post", func(rw http.ResponseWriter, r *http.Request) {
 		read(SSEClientsHub, rw, r)
 	})
 
